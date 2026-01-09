@@ -1,0 +1,2 @@
+export 'package:bcefrontend/infrastructure/navigation/bindings/controllers/formulario.controller.binding.dart'; 
+export 'package:bcefrontend/infrastructure/navigation/bindings/controllers/home.controller.binding.dart'; 
