@@ -9,22 +9,18 @@ class UserProvider extends GetConnect {
       if (map is Map<String, dynamic>) return User.fromJson(map);
       if (map is List) return map.map((item) => User.fromJson(item)).toList();
     };
-    // Asegúrate de que esta IP siga siendo la de tu servidor local
     httpClient.baseUrl = 'http://192.168.1.67:3030/';
 
-    // Es recomendable aumentar el timeout ya que subir imágenes tarda más
     httpClient.timeout = const Duration(seconds: 30);
   }
 
-  // ... otros métodos ...
 
-  // NUEVO MÉTODO PARA ENVIAR USUARIO CON IMAGEN
   Future<Response> postUserConImagen(
     Map<String, dynamic> data,
     File imageFile,
   ) async {
-    // Creamos el FormData asegurando que el archivo sea tratado como tal
     final form = FormData({
+      'usuarioId': data['usuarioId'],
       'email': data['email'],
       'nombre': data['nombre'],
       'apellidoPaterno': data['apellidoPaterno'],
@@ -40,8 +36,6 @@ class UserProvider extends GetConnect {
       'municipio': data['municipio'],
       'codigoPostal': data['codigoPostal'],
 
-      // 💡 SOLUCIÓN AQUÍ:
-      // 'fotografia' debe ser EXACTAMENTE igual al nombre en upload.single('fotografia')
       'file': MultipartFile(
         imageFile,
         filename: 'registro_${DateTime.now().millisecondsSinceEpoch}.jpg',
@@ -49,7 +43,6 @@ class UserProvider extends GetConnect {
       ),
     });
 
-    // Enviamos al backend
     return post('users?mode=createUser', form);
   }
 

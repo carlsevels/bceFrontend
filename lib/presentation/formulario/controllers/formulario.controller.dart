@@ -62,6 +62,7 @@ class FormularioController extends GetxController {
 
       // Preparamos el mapa de textos
       Map<String, dynamic> datosParaEnviar = {
+        'usuarioId': 1,
         'email': emailController.text.trim(),
         'nombre': nombreController.text.trim(),
         'apellidoPaterno': apellidoPaternoController.text.trim(),
@@ -78,13 +79,12 @@ class FormularioController extends GetxController {
         'codigoPostal': codigoPostalController.text.trim(),
       };
 
-      // LLAMADA AL PROVIDER: Pasamos los textos y el archivo File
       final response = await userProvider.postUserConImagen(
         datosParaEnviar,
         imagenSeleccionada.value!,
       );
 
-      Get.back(); // Quitar el loading
+      Get.back(); 
 
       if (response.status.hasError) {
         throw "Servidor respondió con error ${response.statusCode}: ${response.statusText}";
