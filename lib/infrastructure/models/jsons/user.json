@@ -1,0 +1,40 @@
+{
+    "id": 6,
+    "email": "test@test.com",
+    "datosPersonales": {
+        "id": 5,
+        "nombre": "Carlos",
+        "apellidoPaterno": "Velez",
+        "apellidoMaterno": "Salazar",
+        "curp": "curp",
+        "fechaNacimiento": "1998-10-15",
+        "generoId": 1,
+        "numCelular": "8117948943",
+        "fotografia": {
+            "id": 2,
+            "text": "url",
+            "datosPersonalesId": 5,
+            "updatedAt": "2026-01-10T01:42:15.408Z",
+            "createdAt": "2026-01-10T01:42:15.408Z"
+        },
+        "escolaridad": {
+            "id": 4,
+            "text": "escolaridad",
+            "datosPersonalesId": 5,
+            "updatedAt": "2026-01-10T01:42:15.408Z",
+            "createdAt": "2026-01-10T01:42:15.408Z"
+        },
+        "ocupacion": {
+            "id": 4,
+            "text": "ocupacion",
+            "datosPersonalesId": 5,
+            "updatedAt": "2026-01-10T01:42:15.408Z",
+            "createdAt": "2026-01-10T01:42:15.408Z"
+        },
+        "userId": 6,
+        "updatedAt": "2026-01-10T01:42:15.407Z",
+        "createdAt": "2026-01-10T01:42:15.407Z"
+    },
+    "updatedAt": "2026-01-10T01:42:15.402Z",
+    "createdAt": "2026-01-10T01:42:15.402Z"
+}

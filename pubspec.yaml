@@ -10,6 +10,8 @@ dependencies:
   get: 4.7.3
   flutter: 
     sdk: flutter
+  image_picker: ^1.2.1
+  dio: ^5.9.0
 
 dev_dependencies: 
   flutter_lints: ^5.0.0

@@ -1,0 +1,14 @@
+# Archivos y carpetas de Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+
+# Archivos de configuración de IDEs
+.idea/
+.vscode/
+*.iml
+
+# Web
+.web_assets/
