@@ -4,11 +4,9 @@ import 'package:get/get.dart';
 
 import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 void main() async {
   var initialRoute = await Routes.initialRoute;
-  usePathUrlStrategy();
   runApp(Main(initialRoute));
 }
 
