@@ -8,6 +8,7 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 void main() async {
   var initialRoute = await Routes.initialRoute;
+  usePathUrlStrategy();
   runApp(Main(initialRoute));
 }
 
