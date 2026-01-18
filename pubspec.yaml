@@ -10,6 +10,8 @@ dependencies:
   get: 4.7.3
   flutter: 
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
   image_picker: ^1.2.1
   dio: ^5.9.0
 
