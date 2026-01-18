@@ -1,4 +1,5 @@
 import 'dart:io'; // Importante para la clase File
+import 'package:bcefrontend/config.dart';
 import 'package:get/get.dart';
 import '../user_model.dart';
 
@@ -9,7 +10,7 @@ class UserProvider extends GetConnect {
       if (map is Map<String, dynamic>) return User.fromJson(map);
       if (map is List) return map.map((item) => User.fromJson(item)).toList();
     };
-    httpClient.baseUrl = 'http://192.168.1.67:3030/';
+    httpClient.baseUrl = ConfigEnvironments.getEnvironments()["url"];
 
     httpClient.timeout = const Duration(seconds: 30);
   }

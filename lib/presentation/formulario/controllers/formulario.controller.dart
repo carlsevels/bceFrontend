@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:bcefrontend/infrastructure/models/providers/user_provider.dart';
-import 'package:bcefrontend/infrastructure/models/user_model.dart';
 
 class FormularioController extends GetxController {
   final UserProvider userProvider = Get.find<UserProvider>();
