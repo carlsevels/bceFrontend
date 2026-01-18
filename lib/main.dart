@@ -1,17 +1,22 @@
-import 'package:bcefrontend/infrastructure/navigation/navigation.dart';
-import 'package:bcefrontend/infrastructure/navigation/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart'; // Importa este
+// IMPORTANTE: Asegúrate de tener este import EXACTO
+import 'package:flutter_web_plugins/flutter_web_plugins.dart'; 
+
+import 'infrastructure/navigation/navigation.dart';
+import 'infrastructure/navigation/routes.dart';
 
 void main() async {
+  // 1. Esto prepara el motor de Flutter antes de configurar la web
   WidgetsFlutterBinding.ensureInitialized();
   
-  setUrlStrategy(null); 
+  // 2. FORMA MANUAL: Esto sobreescribe cualquier otra configuración
+  setUrlStrategy(const HashUrlStrategy()); 
 
   var initialRoute = await Routes.initialRoute;
   runApp(Main(initialRoute));
 }
+
 class Main extends StatelessWidget {
   final String initialRoute;
   Main(this.initialRoute);
