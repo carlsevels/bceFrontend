@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart'
+    show kIsWeb; // Añadido para detectar Web
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +14,11 @@ class FormularioController extends GetxController {
   var fechaNacimiento = "".obs;
   var generoSeleccionado = "".obs;
   var imagenSeleccionada = Rxn<File>();
-  
+
+  // NUEVO: Variables para Web (no borramos las anteriores)
+  var webImage = Rxn<Uint8List>();
+  var nombreArchivoWeb = "".obs;
+
   final ImagePicker _picker = ImagePicker();
 
   // Controladores de los campos de texto
@@ -39,7 +46,17 @@ class FormularioController extends GetxController {
       );
 
       if (archivo != null) {
-        imagenSeleccionada.value = File(archivo.path);
+        if (kIsWeb) {
+          // Lógica para Web: Leemos bytes
+          final bytes = await archivo.readAsBytes();
+          webImage.value = bytes;
+          nombreArchivoWeb.value = archivo.name;
+          // Asignamos un File "falso" o nulo para no romper validaciones si existen,
+          // aunque en Web lo que importa son los bytes.
+        } else {
+          // Lógica para Móvil (tu código original)
+          imagenSeleccionada.value = File(archivo.path);
+        }
       }
     } catch (e) {
       Get.snackbar("Error", "No se pudo seleccionar la imagen: $e");
@@ -48,18 +65,24 @@ class FormularioController extends GetxController {
 
   // Enviar todo al Backend
   Future<void> createRegisterUser() async {
-    // Validación: Sin foto no hay registro
-    if (imagenSeleccionada.value == null) {
-      Get.snackbar("Atención", "Es obligatorio subir una fotografía",
-          backgroundColor: Colors.orange, colorText: Colors.white);
+    // Validación: Adaptada para Web y Móvil
+    if ((kIsWeb && webImage.value == null) ||
+        (!kIsWeb && imagenSeleccionada.value == null)) {
+      Get.snackbar(
+        "Atención",
+        "Es obligatorio subir una fotografía",
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+      );
       return;
     }
 
     try {
-      // Mostrar pantalla de carga
-      Get.dialog(const Center(child: CircularProgressIndicator()), barrierDismissible: false);
+      Get.dialog(
+        const Center(child: CircularProgressIndicator()),
+        barrierDismissible: false,
+      );
 
-      // Preparamos el mapa de textos
       Map<String, dynamic> datosParaEnviar = {
         'usuarioId': 1,
         'email': emailController.text.trim(),
@@ -78,27 +101,41 @@ class FormularioController extends GetxController {
         'codigoPostal': codigoPostalController.text.trim(),
       };
 
+      // Nota: Tu UserProvider ahora debe aceptar bytes si es Web
+      dynamic archivoAEnviar;
+      if (kIsWeb) {
+        archivoAEnviar = webImage.value; // Envía Uint8List
+      } else {
+        archivoAEnviar = imagenSeleccionada.value!; // Envía File
+      }
+
       final response = await userProvider.postUserConImagen(
         datosParaEnviar,
-        imagenSeleccionada.value!,
+        archivoAEnviar, // Ahora Dart no se quejará del tipo
       );
 
-      Get.back(); 
+      Get.back();
 
       if (response.status.hasError) {
         throw "Servidor respondió con error ${response.statusCode}: ${response.statusText}";
       }
 
-      // ÉXITO TOTAL
-      Get.snackbar("¡Listo!", "Registro guardado en Drive y Excel",
-          backgroundColor: Colors.green, colorText: Colors.white);
+      Get.snackbar(
+        "¡Listo!",
+        "Registro guardado en Drive y Excel",
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
 
       limpiarFormulario();
-
     } catch (e) {
       if (Get.isDialogOpen!) Get.back();
-      Get.snackbar("Error", "No se pudo completar: $e",
-          backgroundColor: Colors.red, colorText: Colors.white);
+      Get.snackbar(
+        "Error",
+        "No se pudo completar: $e",
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
       debugPrint("❌ Error en registro: $e");
     }
   }
@@ -120,11 +157,11 @@ class FormularioController extends GetxController {
     fechaNacimiento.value = "";
     generoSeleccionado.value = "";
     imagenSeleccionada.value = null;
+    webImage.value = null; // Limpiar también variable Web
   }
 
   @override
   void onClose() {
-    // Es vital hacer dispose para no saturar la memoria del celular
     emailController.dispose();
     nombreController.dispose();
     apellidoPaternoController.dispose();
@@ -140,7 +177,9 @@ class FormularioController extends GetxController {
     escolaridadController.dispose();
     super.onClose();
   }
-    void eliminarImagen() {
+
+  void eliminarImagen() {
     imagenSeleccionada.value = null;
+    webImage.value = null;
   }
 }

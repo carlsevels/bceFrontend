@@ -1,5 +1,6 @@
 import 'dart:io'; // Importante para la clase File
 import 'package:bcefrontend/config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../user_model.dart';
 
@@ -16,11 +17,13 @@ class UserProvider extends GetConnect {
   }
 
 
-  Future<Response> postUserConImagen(
+Future<Response> postUserConImagen(
     Map<String, dynamic> data,
-    File imageFile,
+    dynamic imageFile,
   ) async {
-    final form = FormData({
+    
+    // Preparamos los campos del formulario
+    final Map<String, dynamic> formFields = {
       'usuarioId': data['usuarioId'],
       'email': data['email'],
       'nombre': data['nombre'],
@@ -36,17 +39,29 @@ class UserProvider extends GetConnect {
       'colonia': data['colonia'],
       'municipio': data['municipio'],
       'codigoPostal': data['codigoPostal'],
+    };
 
-      'file': MultipartFile(
-        imageFile,
+    // 2. Lógica híbrida para el archivo
+    if (kIsWeb) {
+      // En Web, 'imageFile' es un Uint8List (bytes)
+      formFields['file'] = MultipartFile(
+        imageFile, 
         filename: 'registro_${DateTime.now().millisecondsSinceEpoch}.jpg',
         contentType: 'image/jpeg',
-      ),
-    });
+      );
+    } else {
+      // En Móvil, 'imageFile' es un objeto File. Usamos .path
+      formFields['file'] = MultipartFile(
+        (imageFile as File).path, 
+        filename: 'registro_${DateTime.now().millisecondsSinceEpoch}.jpg',
+        contentType: 'image/jpeg',
+      );
+    }
+
+    final form = FormData(formFields);
 
     return post('users?mode=createUser', form);
   }
-
   Future<User?> getUser(int id) async {
     final response = await get('user/$id');
     return response.body;
