@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:flutter/foundation.dart'
-    show kIsWeb; // Añadido para detectar Web
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,18 +9,15 @@ import 'package:bcefrontend/infrastructure/models/providers/user_provider.dart';
 class FormularioController extends GetxController {
   final UserProvider userProvider = Get.find<UserProvider>();
 
-  // Variables reactivas
   var fechaNacimiento = "".obs;
   var generoSeleccionado = "".obs;
   var imagenSeleccionada = Rxn<File>();
 
-  // NUEVO: Variables para Web (no borramos las anteriores)
   var webImage = Rxn<Uint8List>();
   var nombreArchivoWeb = "".obs;
 
   final ImagePicker _picker = ImagePicker();
 
-  // Controladores de los campos de texto
   final emailController = TextEditingController();
   final nombreController = TextEditingController();
   final apellidoPaternoController = TextEditingController();
@@ -47,14 +43,10 @@ class FormularioController extends GetxController {
 
       if (archivo != null) {
         if (kIsWeb) {
-          // Lógica para Web: Leemos bytes
           final bytes = await archivo.readAsBytes();
           webImage.value = bytes;
           nombreArchivoWeb.value = archivo.name;
-          // Asignamos un File "falso" o nulo para no romper validaciones si existen,
-          // aunque en Web lo que importa son los bytes.
         } else {
-          // Lógica para Móvil (tu código original)
           imagenSeleccionada.value = File(archivo.path);
         }
       }
@@ -63,9 +55,7 @@ class FormularioController extends GetxController {
     }
   }
 
-  // Enviar todo al Backend
   Future<void> createRegisterUser() async {
-    // Validación: Adaptada para Web y Móvil
     if ((kIsWeb && webImage.value == null) ||
         (!kIsWeb && imagenSeleccionada.value == null)) {
       Get.snackbar(
@@ -84,7 +74,6 @@ class FormularioController extends GetxController {
       );
 
       Map<String, dynamic> datosParaEnviar = {
-        'usuarioId': 1,
         'email': emailController.text.trim(),
         'nombre': nombreController.text.trim(),
         'apellidoPaterno': apellidoPaternoController.text.trim(),
@@ -101,17 +90,16 @@ class FormularioController extends GetxController {
         'codigoPostal': codigoPostalController.text.trim(),
       };
 
-      // Nota: Tu UserProvider ahora debe aceptar bytes si es Web
       dynamic archivoAEnviar;
       if (kIsWeb) {
-        archivoAEnviar = webImage.value; // Envía Uint8List
+        archivoAEnviar = webImage.value;
       } else {
-        archivoAEnviar = imagenSeleccionada.value!; // Envía File
+        archivoAEnviar = imagenSeleccionada.value!;
       }
 
       final response = await userProvider.postUserConImagen(
         datosParaEnviar,
-        archivoAEnviar, // Ahora Dart no se quejará del tipo
+        archivoAEnviar,
       );
 
       Get.back();
@@ -122,7 +110,7 @@ class FormularioController extends GetxController {
 
       Get.snackbar(
         "¡Listo!",
-        "Registro guardado en Drive y Excel",
+        "Registro guardado",
         backgroundColor: Colors.green,
         colorText: Colors.white,
       );
