@@ -10,7 +10,7 @@ class ConfigEnvironments {
   static final List<Map<String, String>> _availableEnvironments = [
     {
       'env': Environments.LOCAL,
-      'url': 'https://bcebackend-production.up.railway.app/',
+      'url': 'http://192.168.1.67:3004/',
     },
     {
       'env': Environments.DEV,
