@@ -40988,7 +40988,7 @@ a2=n.k1
 a3=n.k2
 a4=n.k3
 a5=n.k4
-m=A.ap(["usuarioId",1,"email",B.d.es(h.a.a),"nombre",B.d.es(g.a.a),"apellidoPaterno",B.d.es(f.a.a),"apellidoMaterno",B.d.es(e.a.a),"curp",B.d.es(d.a.a),"fechaNacimiento",c.gn(),"genero",b.gn(),"numCelular",B.d.es(a.a.a),"escolaridad",B.d.es(a0.a.a),"ocupacion",B.d.es(a1.a.a),"calleNumero",B.d.es(a2.a.a),"colonia",B.d.es(a3.a.a),"municipio",B.d.es(a4.a.a),"codigoPostal",B.d.es(a5.a.a)],t.N,i)
+m=A.ap(["email",B.d.es(h.a.a),"nombre",B.d.es(g.a.a),"apellidoPaterno",B.d.es(f.a.a),"apellidoMaterno",B.d.es(e.a.a),"curp",B.d.es(d.a.a),"fechaNacimiento",c.gn(),"genero",b.gn(),"numCelular",B.d.es(a.a.a),"escolaridad",B.d.es(a0.a.a),"ocupacion",B.d.es(a1.a.a),"calleNumero",B.d.es(a2.a.a),"colonia",B.d.es(a3.a.a),"municipio",B.d.es(a4.a.a),"codigoPostal",B.d.es(a5.a.a)],t.N,i)
 l=null
 l=a7.gn()
 s=7
@@ -40998,7 +40998,7 @@ A.av0(a8)
 i=k.c
 if(!(i!=null&&i>=200&&i<=299)){a7=k.c
 a8=k.d
-throw A.i("Servidor respondi\xf3 con error "+A.l(a7)+": "+a8)}A.a2z(a8,"\xa1Listo!","Registro guardado en Drive y Excel",B.ur,B.k)
+throw A.i("Servidor respondi\xf3 con error "+A.l(a7)+": "+a8)}A.a2z(a8,"\xa1Listo!","Registro guardado",B.ur,B.k)
 h.e4(B.bh)
 g.e4(B.bh)
 f.e4(B.bh)
@@ -93024,7 +93024,7 @@ $.YI=!1
 $.Ys=null
 $.hs=null
 $.aHU=function(){var s=t.N
-return A.c([A.ap(["env","local","url","https://bcebackend-production.up.railway.app/"],s,s),A.ap(["env","dev","url",""],s,s),A.ap(["env","QAS","url",""],s,s),A.ap(["env","prod","url",""],s,s)],A.aj("y<aY<k,k>>"))}()
+return A.c([A.ap(["env","local","url","http://192.168.7.55:3004/"],s,s),A.ap(["env","dev","url",""],s,s),A.ap(["env","QAS","url",""],s,s),A.ap(["env","prod","url",""],s,s)],A.aj("y<aY<k,k>>"))}()
 $.jy=A.aQI()
 $.a2R=0
 $.aJm=A.c([],A.aj("y<aUL>"))
