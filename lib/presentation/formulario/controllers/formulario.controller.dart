@@ -32,7 +32,6 @@ class FormularioController extends GetxController {
   final ocupacionController = TextEditingController();
   final escolaridadController = TextEditingController();
 
-  // Seleccionar la foto desde la cámara o galería
   Future<void> seleccionarImagen(ImageSource source) async {
     try {
       final XFile? archivo = await _picker.pickImage(
@@ -145,7 +144,7 @@ class FormularioController extends GetxController {
     fechaNacimiento.value = "";
     generoSeleccionado.value = "";
     imagenSeleccionada.value = null;
-    webImage.value = null; // Limpiar también variable Web
+    webImage.value = null; 
   }
 
   @override

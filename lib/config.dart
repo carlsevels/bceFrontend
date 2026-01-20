@@ -3,13 +3,18 @@ class Environments {
   static const String QAS = 'QAS';
   static const String DEV = 'dev';
   static const String LOCAL = 'local';
+  static const String BIBLIOTECA = 'local';
 }
 
 class ConfigEnvironments {
-  static const String _currentEnvironments = Environments.LOCAL;
+  static const String _currentEnvironments = Environments.BIBLIOTECA;
   static final List<Map<String, String>> _availableEnvironments = [
     {
       'env': Environments.LOCAL,
+      'url': 'http://192.168.1.67:3004/',
+    },
+         {
+      'env': Environments.BIBLIOTECA,
       'url': 'http://192.168.7.55:3004/',
     },
     {
