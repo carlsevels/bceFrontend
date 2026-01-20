@@ -93024,7 +93024,7 @@ $.YI=!1
 $.Ys=null
 $.hs=null
 $.aHU=function(){var s=t.N
-return A.c([A.ap(["env","local","url","http://192.168.7.55:3004/"],s,s),A.ap(["env","dev","url",""],s,s),A.ap(["env","QAS","url",""],s,s),A.ap(["env","prod","url",""],s,s)],A.aj("y<aY<k,k>>"))}()
+return A.c([A.ap(["env","local","url","https://biblioteca-1099478584922.europe-west1.run.app/"],s,s),A.ap(["env","dev","url",""],s,s),A.ap(["env","QAS","url",""],s,s),A.ap(["env","prod","url",""],s,s)],A.aj("y<aY<k,k>>"))}()
 $.jy=A.aQI()
 $.a2R=0
 $.aJm=A.c([],A.aj("y<aUL>"))
