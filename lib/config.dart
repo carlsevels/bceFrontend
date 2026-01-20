@@ -8,10 +8,14 @@ class Environments {
 class ConfigEnvironments {
   static const String _currentEnvironments = Environments.LOCAL;
   static final List<Map<String, String>> _availableEnvironments = [
-    {
+     {
       'env': Environments.LOCAL,
       'url': 'https://biblioteca-1099478584922.europe-west1.run.app/',
     },
+    // {
+    //   'env': Environments.LOCAL,
+    //   'url': 'https://biblioteca-1099478584922.europe-west1.run.app/',
+    // },
     {
       'env': Environments.DEV,
       'url': '',
