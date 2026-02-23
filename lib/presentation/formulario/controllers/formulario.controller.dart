@@ -18,6 +18,8 @@ class FormularioController extends GetxController {
 
   final ImagePicker _picker = ImagePicker();
 
+  var isLoading = false.obs;
+
   final emailController = TextEditingController();
   final nombreController = TextEditingController();
   final apellidoPaternoController = TextEditingController();
@@ -67,6 +69,8 @@ class FormularioController extends GetxController {
     }
 
     try {
+      isLoading.value = true;
+
       Get.dialog(
         const Center(child: CircularProgressIndicator()),
         barrierDismissible: false,
@@ -101,7 +105,7 @@ class FormularioController extends GetxController {
         archivoAEnviar,
       );
 
-      Get.back();
+      if (Get.isDialogOpen!) Get.back();
 
       if (response.status.hasError) {
         throw "Servidor respondió con error ${response.statusCode}: ${response.statusText}";
@@ -124,6 +128,8 @@ class FormularioController extends GetxController {
         colorText: Colors.white,
       );
       debugPrint("❌ Error en registro: $e");
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -144,7 +150,7 @@ class FormularioController extends GetxController {
     fechaNacimiento.value = "";
     generoSeleccionado.value = "";
     imagenSeleccionada.value = null;
-    webImage.value = null; 
+    webImage.value = null;
   }
 
   @override

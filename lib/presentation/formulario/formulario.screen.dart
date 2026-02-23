@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:bcefrontend/presentation/formulario/localWidgets/DatePicker.dart';
 import 'package:bcefrontend/presentation/formulario/localWidgets/enviarRegistro.dart';
 import 'package:bcefrontend/presentation/formulario/localWidgets/genderDropdown.dart';
@@ -8,10 +7,8 @@ import 'package:bcefrontend/presentation/formulario/localWidgets/photoPicker.dar
 import 'package:bcefrontend/presentation/formulario/localWidgets/privacidadDatos.dart';
 import 'package:bcefrontend/presentation/formulario/localWidgets/tituloDeSeccion.dart';
 import 'package:bcefrontend/presentation/theme/app-colors.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:bcefrontend/presentation/formulario/controllers/formulario.controller.dart';
 
 class FormularioScreen extends GetView<FormularioController> {
