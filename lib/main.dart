@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// IMPORTANTE: Asegúrate de tener este import EXACTO
 import 'package:flutter_web_plugins/flutter_web_plugins.dart'; 
-
 import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';
 
